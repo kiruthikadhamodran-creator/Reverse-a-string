@@ -1,0 +1,35 @@
+#include <string.h>
+void reverse(char* s, int i, int j) {
+    while (i < j) {
+        char temp = s[i];
+        s[i++] = s[j];
+        s[j--] = temp;
+    }
+}
+
+char* reverseWords(char* s) {
+    int n = strlen(s);
+    int write_ptr = 0;
+    int read_ptr = 0;
+
+    while (read_ptr < n) {
+        while (read_ptr < n && s[read_ptr] == ' ') read_ptr++;
+        if (read_ptr < n) {
+            if (write_ptr != 0) {
+                s[write_ptr++] = ' ';
+            }
+            
+            int start = write_ptr;
+          
+            while (read_ptr < n && s[read_ptr] != ' ') {
+                s[write_ptr++] = s[read_ptr++];
+            }
+    
+            reverse(s, start, write_ptr - 1);
+        }
+    }
+    s[write_ptr] = '\0';
+    reverse(s, 0, write_ptr - 1);
+
+    return s;
+}
